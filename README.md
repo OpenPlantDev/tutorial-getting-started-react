@@ -6,8 +6,12 @@ After cloning:
   * code .
   * open terminal
   * npm install
-  * npm run dev
+  * npm start
 
 
 ## Initial Configuration (Tag: InitalConfig)
-  * git clone https://github.com/OpenPlantDev/tutorial-getting-started-react.git -b InitialConfig [yourFolder]
+  * Initial Configuration Files
+    * git clone https://github.com/OpenPlantDev/tutorial-getting-started-react.git -b InitialConfig [yourFolder]
+## Part 1 (Tag: Part1)
+  * Simple Hello World React app using TypeScript and WebPack
+    * git clone https://github.com/OpenPlantDev/tutorial-getting-started-react.git -b Part1 [yourFolder]
