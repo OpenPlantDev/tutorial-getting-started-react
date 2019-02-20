@@ -8,7 +8,7 @@ module.exports = {
         app: [
             'webpack-dev-server/client?http://localhost:4000', 
             'webpack/hot/only-dev-server',
-            './src/App.tsx'    
+            './src/Main.tsx'    
         ],
         vendor: ['react', 'react-dom']
     },
