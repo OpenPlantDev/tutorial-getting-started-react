@@ -21,3 +21,6 @@ After cloning:
 ## Part 3 (Tag: Part3)
   * Adding socket.io
     * git clone https://github.com/OpenPlantDev/tutorial-getting-started-react.git -b Part3 [yourFolder]
+## Part 4 (Tag: Part4)
+  * Some minor refactoring and cleanup
+    * git clone https://github.com/OpenPlantDev/tutorial-getting-started-react.git -b Part4 [yourFolder]
