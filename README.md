@@ -24,3 +24,6 @@ After cloning:
 ## Part 4 (Tag: Part4)
   * Some minor refactoring and cleanup
     * git clone https://github.com/OpenPlantDev/tutorial-getting-started-react.git -b Part4 [yourFolder]
+## Part 5 (Tag: Part5)
+  * Adding State
+    * git clone https://github.com/OpenPlantDev/tutorial-getting-started-react.git -b Part5 [yourFolder]
