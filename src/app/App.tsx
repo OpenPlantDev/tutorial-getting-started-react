@@ -1,7 +1,15 @@
 import * as React from "react";
+import * as socketio from "socket.io-client";
 import { Hello } from "./components/Hello";
 
 export class App extends React.Component {
+
+  private _socket: SocketIOClient.Socket;
+
+  constructor(props: any) {
+    super(props);
+    this._socket = socketio("http://localhost:4060");
+  }
 
   render() {
    return (
@@ -32,11 +40,24 @@ export class App extends React.Component {
   async componentDidMount() {
     console.log("In componentDidMount");
 
+    // initial fetch of data
     try {
       const result = await this.fetchComponents();
       console.log(result);
     } catch (err) {
       console.log(err.message);
     }
+
+    // fetch data if we receive message that the data changed
+    this._socket.on("DbUpdated", async (data: any) => {
+      try {
+        console.log(data);
+        const result = await this.fetchComponents();
+        console.log(result);
+      } catch (err) {
+        console.log(err.message);
+      }
+    });
+
   }
 };
