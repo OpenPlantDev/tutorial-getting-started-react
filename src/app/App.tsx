@@ -1,63 +1,48 @@
 import * as React from "react";
 import * as socketio from "socket.io-client";
-import { Hello } from "./components/Hello";
+import { DataService } from "../services/data.service";
 
 export class App extends React.Component {
 
   private _socket: SocketIOClient.Socket;
+  private _dataService: DataService;
+  private _baseUrl: string = "http://localhost:4060";
 
   constructor(props: any) {
     super(props);
-    this._socket = socketio("http://localhost:4060");
+    this._socket = socketio(this._baseUrl);
+    this._dataService = new DataService(`${this._baseUrl}/api`);
   }
 
-  render() {
+  public render() {
    return (
      <div>
-      <Hello compiler="Typescript" framework="React" bundler="Webpack" />
       <p>Check console for fetch results</p>
      </div>
    );
   }
 
-  fetchComponents()  {
-    let url = "http://localhost:4060/api/components";
-    console.log(`url: ${url}`);
-    return fetch(url).then((response) => {
-            if(response.ok) {
-                return response.json();
-            } else {
-                throw new Error("Error reading data");
-            }
-        }).then((result) => {
-            return result;
-        }).catch((err) => {
-            console.log(`In fetchComponents catch: ${err}`);
-            throw err;
-        });
-  }
-
-  async componentDidMount() {
-    console.log("In componentDidMount");
-
-    // initial fetch of data
+  private async UpdateData() {
     try {
-      const result = await this.fetchComponents();
+      const result = await this._dataService.fetchComponents();
       console.log(result);
+      return result;
     } catch (err) {
       console.log(err.message);
     }
+  }
+
+  public async componentDidMount() {
+    console.log("In componentDidMount");
+
+    // initial fetch of data
+    await this.UpdateData();
 
     // fetch data if we receive message that the data changed
     this._socket.on("DbUpdated", async (data: any) => {
-      try {
-        console.log(data);
-        const result = await this.fetchComponents();
-        console.log(result);
-      } catch (err) {
-        console.log(err.message);
-      }
+      console.log("Recieved DbUpdated");
+      await this.UpdateData();
     });
 
   }
-};
+}
