@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as socketio from "socket.io-client";
 import { DataService } from "../services/data.service";
-import {IComponent} from "../models/component";
+import {IComponent} from "./models/component";
+import {ComponentsView} from "./components/ComponentsView";
 
 interface IState {
   components: IComponent[];
@@ -30,15 +31,10 @@ export class App extends React.Component <any, IState> {
     if (this.state.error) {
       return <h3>Error: {this.state.error.message}</h3>;
     }
-    console.log(this.state.components);
+    // console.log(this.state.components);
     return (
      <div>
-          <ul>Components
-            {this.state.components.map((comp) =>
-                <li key={comp.id}>{comp.tag}</li>
-                )
-            }
-          </ul>
+          <ComponentsView components={this.state.components} />
      </div>
    );
   }
@@ -50,7 +46,7 @@ export class App extends React.Component <any, IState> {
       this.setState({ components: result, isLoading: false, error: undefined} );
       return result;
     } catch (err) {
-      console.log(err.message);
+      // console.log(err.message);
       this.setState({ isLoading: false, error: err} );
     }
   }

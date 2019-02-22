@@ -6,3 +6,4 @@ export interface IComponent {
     tag: string;
     properties?: IPropertyObject;
 }
+
