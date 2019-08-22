@@ -1,25 +1,34 @@
 import * as React from "react";
 import { IComponent } from "../models/component";
-import { ComponentsListItemDetails} from "./ComponentsListItemDetails";
+import { ExpandableBlock } from "@bentley/bwc-react/core";
+import { ComponentDetails } from "./ComponentDetails";
 
 interface IProps {
   component: IComponent;
   onClick: (component: IComponent) => void;
-  showDetails: boolean;
+  isSelected: boolean;
 }
 
+const selectedStyle = {
+  color: "blue",
+  fontWeight: "bold",
+};
+
+
+const unselectedStyle = {
+  color: "black",
+}
+
+// tslint:disable-next-line:variable-name
 export const ComponentsListItem = (props: IProps) => {
-  // console.log(props.component);
-  if (props.showDetails) {
-    return (
-      <div>
-        <li onClick={() => props.onClick(props.component)}>{props.component.tag}</li>
-        <ComponentsListItemDetails component={props.component} />
-      </div>
-    );
-    }
+  const style = props.isSelected ? selectedStyle : unselectedStyle;
   return (
-    <li onClick={() => props.onClick(props.component)}>{props.component.tag}</li>
+    <div>
+    <ExpandableBlock title={props.component.tag}>
+      <ComponentDetails component={props.component} />
+    </ExpandableBlock>
+    </div>
   );
+//    <li style={style} onClick={() => props.onClick(props.component)}>{props.component.tag}</li>
 
 };

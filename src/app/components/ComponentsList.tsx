@@ -1,43 +1,24 @@
 import * as React from "react";
 import {IComponent} from "../models/component";
 import {ComponentsListItem} from "./ComponentsListItem";
-import { bool } from "prop-types";
 
 interface IProps {
+  title: string;
   components: IComponent[];
+  selectedComponent: IComponent;
+  onComponentClick: (component: IComponent) => void;
 }
 
-interface IState {
-  componentDisplayOptions: any;
-}
-
-export class ComponentsList extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {componentDisplayOptions: {}};
-  }
-
-  onComponentClick = (comp: IComponent) => {
-    if(!this.state.componentDisplayOptions[comp.id]) {
-      this.state.componentDisplayOptions[comp.id] = {showDetails: true};
-    } else {
-      this.state.componentDisplayOptions[comp.id] = {showDetails: !this.state.componentDisplayOptions[comp.id].showDetails};
-    }
-    console.log(this.state.componentDisplayOptions);
-    this.setState({componentDisplayOptions: this.state.componentDisplayOptions});
-  }
-  
-  public render () {
-    const displayOptions = this.state.componentDisplayOptions;
-    return(
-      <div>
-      <ul>Components</ul>
-          {this.props.components.map((comp) =>
-            <ComponentsListItem key={comp.id} component={comp}
-              showDetails={displayOptions[comp.id] ? displayOptions[comp.id].showDetails : false} 
-              onClick={this.onComponentClick} />
-        )}
+// tslint:disable-next-line:variable-name
+export const ComponentsList = (props: IProps) => {
+  return (
+      <div style={{width: "400px"}}>
+        <ul>{props.title}</ul>
+            {props.components.map((comp) =>
+              <ComponentsListItem key={comp.id} component={comp}
+                isSelected={props.selectedComponent && (comp.id === props.selectedComponent.id)}
+                onClick={props.onComponentClick} />
+          )}
       </div>
-    );
-  }
-}
+  );
+};

@@ -23,9 +23,13 @@ export class DataService {
         });
   }
 
-  public async fetchComponents() {
+  public async fetchComponents(queryString?: string) {
     try {
-      const result = await this.fetchData(`${this._baseUrl}/components`);
+      let url = `${this._baseUrl}/components`;
+      if(queryString) {
+        url = `${url}?${queryString}`
+      }
+      const result = await this.fetchData(url);
       return result;
     } catch (err) {
       throw err;

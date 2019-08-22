@@ -41,6 +41,10 @@ module.exports = {
                 loader: 'ts-loader',
                 exclude: [path.resolve(__dirname, "node_modules")],   
             },
+            {
+                test:/\.css$/,
+                use:['style-loader','css-loader']
+            },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
         ],
 
