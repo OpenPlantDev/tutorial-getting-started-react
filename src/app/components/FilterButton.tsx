@@ -15,9 +15,9 @@ const buttonStyle = {
 
 // tslint:disable-next-line:variable-name
 export const FilterButton = (props: IProps) => {
-  const buttonType = props.isSelected ? "blue" : "hollow";
+  const styleType = props.isSelected ? "primary" : "hollow";
   return (
-    <Button style={buttonStyle} type={buttonType}
+    <Button style={buttonStyle} styleType={styleType}
             onClick={() => props.onClick(props.filter)}>
       {props.filter.title}
     </Button>
